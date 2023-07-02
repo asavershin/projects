@@ -12,12 +12,11 @@ public class ParamNode implements FormulaNode{
     @Override
     public boolean calc() {
         Global.WorkSpace.iter = Global.WorkSpace.find(new ParamValue(ch, false));
-
-        if(Global.WorkSpace.iter != Global.WorkSpace.iter.end()){
+        if(!Global.WorkSpace.iter.isEqual(Global.WorkSpace.iter.end())){
             return Global.WorkSpace.iter.getData().val;
         }else{
             boolean tmp;
-            System.out.printf("x%s = %n", ch);
+            System.out.printf("x%s = ", ch);
             Scanner scanner = new Scanner(System.in);
             int num = scanner.nextInt();
             tmp = num != 0;
@@ -27,7 +26,7 @@ public class ParamNode implements FormulaNode{
     }
 
     @Override
-    public String str() {
+    public String toString() {
         return String.format("x%s", ch);
     }
 

@@ -7,6 +7,12 @@ public class ParamValue implements Comparable<ParamValue> {
         this.ch = ch;
         this.val = val;
     }
+    public int getCh(){
+        return ch;
+    }
+    public void setVal(boolean newVal){
+        this.val = newVal;
+    }
     public boolean lessThan(int ch) {
         return this.ch < ch;
     }

@@ -12,7 +12,7 @@ public class NumNode implements FormulaNode{
     }
 
     @Override
-    public String str() {;
+    public String toString() {;
         return String.format("(%x)", num?1:0);
     }
 

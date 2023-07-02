@@ -1,8 +1,7 @@
 package workspace;
 import stringiterator.StringIterator;
 import workspace.formulanodes.*;
-import stringiterator.StringIterator.*;
-import java.util.Iterator;
+
 import java.util.ArrayDeque;
 
 
@@ -50,8 +49,7 @@ public class BooleanExpression {
         return 3;
     }
 
-    //Превращаем инфиксную запись в постфиксную
-    public static String Infix2Postfix_(String instr) throws Exception {
+    static String infix2Postfix_(String instr) throws Exception {
         StringBuilder outstr = new StringBuilder();
         int i = 0, j = 0; // i - index for input str, j - index for output str
         int row, col;
@@ -68,11 +66,13 @@ public class BooleanExpression {
             switch (action) {
                 case 1:
                     if (((len <= i) ? (char)0 : instr.charAt(i)) == 'x') {
+//                        System.out.println(len);
+
                         ++i;
                         //xNumber = xIndexGetter(instr, i);
                         outstr.append('x');
                         //xNumberWriter(outstr, xNumber, j);
-                        while (Character.isDigit(instr.charAt(i))) {
+                        while ( i < len && Character.isDigit(instr.charAt(i))) {
                             outstr.append(instr.charAt(i));
                             ++i;
                             ++j;
@@ -120,8 +120,7 @@ public class BooleanExpression {
     }
     FormulaNode root;
 
-    //Постфиксную запись в обычное дерево
-    public static FormulaNode postfixToTree_(String str){
+    static FormulaNode postfixToTree_(String str){
         int index = 0; // Номер элемента во входной строке
         char ch;
         FormulaNode result;
@@ -240,8 +239,7 @@ public class BooleanExpression {
 
     }
 
-    //фильтруем входные данные от ненужного мусор типа пробелов
-    public static String InfixFilter_(String instr) throws Exception {
+    static String infixFilter_(String instr) throws Exception {
         StringBuilder outstr = new StringBuilder();
         int i = 0, j = 0; // i - индекс во входной строке, j - в выходной
         char ch;
@@ -288,32 +286,24 @@ public class BooleanExpression {
         return outstr.toString();
     }
 
-//    void infix2Postfix_(String in, StringBuilder out) {
-//        int i = 0;
-//        int j = 0; // i - индекс во входной строке, j - в выходной
-//        int row;
-//        int col;
-//        char action;
-//        ArrayDeque<Character> S = new ArrayDeque<>();
-//        boolean isP = false;
-//        do {
-//            col = actionsColNumber(in.charAt(i));
-//            row = S.isEmpty() ? 0 : actionsRowNumber(S.peek());
-//            action = actionsTable[row][col];
-//            switch (action) {
-//                case 1: out.append(in.charAt(i));++j; ++i; isP = true; break;
-//                case 2: S.push(in.charAt(i)); ++i; if (isP) { out[j] = '.'; ++j; isP = 0; } break;
-//                case 3:  out[j] = S.top(); ++j; S.pop();  break;
-//                case 4: S.pop(); ++i; break;
-//                case 5: throw ErrorBracketsClose(instr, i); break;
-//                case 6: throw ErrorBracketsOpen(instr, i); break;
-//                case 7: outstr[j] = '\0'; break;
-//                case 8: throw ErrorFunctionBrackets(instr, i); break;
-//                case 9: throw ErrorRValue(); break;
-//            }
-//        } while (action != 7);
-//    }
+
+    public BooleanExpression(String str) throws Exception {
+        root = postfixToTree_(infix2Postfix_(infixFilter_(str)));
+    }
 
 
+    public boolean calc(){
+        if(root != null){
+            return root.calc();
+        }
+        return false;
+    }
+
+    public String toString(){
+        if(root != null){
+            return root.toString();
+        }
+        return "";
+    }
 }
 

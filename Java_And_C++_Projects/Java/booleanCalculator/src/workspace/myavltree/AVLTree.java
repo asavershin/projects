@@ -1,13 +1,16 @@
 package workspace.myavltree;
-public class AVLTree<Element extends Comparable<Element>> {
+
+import workspace.formulanodes.ParamValue;
+
+public class AVLTree {
 
     class Node {
         Node left;
         Node right;
         Node parent;
-        protected Element data;
+        protected ParamValue data;
         int balance;
-        Node(Element X){
+        Node(ParamValue X){
             this.right = null;
             this.left = null;
             this.parent = null;
@@ -74,7 +77,7 @@ public class AVLTree<Element extends Comparable<Element>> {
     };
     public class iterator {
 
-        Node now;
+        public Node now;
         public iterator(){
             this.now = null;
         }
@@ -82,7 +85,7 @@ public class AVLTree<Element extends Comparable<Element>> {
             this.now = now;
         }
 
-        public Element getData(){
+        public ParamValue getData(){
             return now.data;
         }
 
@@ -300,10 +303,6 @@ public class AVLTree<Element extends Comparable<Element>> {
         this.count = 0;
         this.iter = new iterator();
     }
-//	~AVLTree() {
-//        if (root)
-//            delete root;  root = nullptr;
-//    }
 
     public int size(){ return count; }
     public int height(){ return (root != null) ? root.level() : 0; }
@@ -311,7 +310,7 @@ public class AVLTree<Element extends Comparable<Element>> {
         if (root != null) root.delete();
         root = null;
     }
-    public void insert(Element X) {
+    public void insert(ParamValue X) {
         ++count;
         if (root == null) {
             root = new Node(X);
@@ -323,7 +322,7 @@ public class AVLTree<Element extends Comparable<Element>> {
         now = root;
         do {
             p = now;
-            if (X.compareTo(now.data) < 0) {
+            if (X.getCh() < now.data.getCh()) {
                 now = now.left;
                 toLeft = true;
             }
@@ -372,11 +371,11 @@ public class AVLTree<Element extends Comparable<Element>> {
     }
 
 
-    public iterator find(Element X){
+    public iterator find(ParamValue X){
         Node now = root;
         while (now != null) {
-            if (X.compareTo(now.data) == 0) break;
-            if (X.compareTo(now.data) < 0){
+            if (X.getCh() == now.data.getCh()) break;
+            if (X.getCh() < now.data.getCh()){
                 now = now.left;
             }
             else {
@@ -492,22 +491,3 @@ public class AVLTree<Element extends Comparable<Element>> {
     };
 
 }
-//    class reverse_iterator {
-//        Node* now;
-//        public:
-//        reverse_iterator(Node* p = nullptr) : now(p) {}
-//		const Element& operator*()const { return now->data; }
-//        bool operator==(const reverse_iterator& p)const { return now == p.now; }
-//        bool operator!=(const reverse_iterator& p)const { return now != p.now; }
-//        reverse_iterator& operator++() { if (now) now = now->prev(); return *this; }
-//        reverse_iterator operator++(int) {
-//            Node* tmp = now;
-//            if (now) now = now->prev();
-//            return reverse_iterator(tmp);
-//        }
-//    };
-//    reverse_iterator rbegin()const {
-//        if (root) return reverse_iterator(root->maximum());
-//        return rend();
-//    }
-//    reverse_iterator rend()const { return reverse_iterator(nullptr); }

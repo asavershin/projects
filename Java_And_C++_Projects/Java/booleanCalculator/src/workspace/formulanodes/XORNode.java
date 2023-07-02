@@ -10,7 +10,7 @@ public class XORNode extends BinNode{
     public boolean calc() {return ( !left.calc() && right.calc() ) || ( left.calc() && !right.calc() );}
 
     @Override
-    public String str() {return String.format("(%s + %s)", left.str(),right.str());}
+    public String toString() {return String.format("(%s + %s)", left.toString(),right.toString());}
 
     @Override
     public FormulaNode create() {return new XORNode(this);}

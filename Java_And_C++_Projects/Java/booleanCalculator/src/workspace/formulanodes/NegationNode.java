@@ -17,7 +17,7 @@ public class NegationNode implements FormulaNode {
     }
 
     @Override
-    public String str() {
+    public String toString() {
         return String.format("~%s", node.calc()?1:0);
     }
 
